@@ -1,0 +1,19 @@
+{
+  "name": "ngx-one-tap",
+  "description": "This library is a wrapper around the Google One Tap SDK for Angular",
+  "license": "MIT",
+  "keywords": ["one tap", "angular", "auth"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpreziuso/ngx-one-tap.git"
+  },
+  "bugs": "https://github.com/mpreziuso/ngx-one-tap/issues",
+  "version": "0.1.2",
+  "peerDependencies": {
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
