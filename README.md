@@ -5,7 +5,7 @@ This library is a wrapper around the Google One Tap SDK for Angular.
 ## Installation
 
 ```bash
-npm install --save @mpreziuso/ngx-one-tap --save
+npm install --save ngx-one-tap
 ```
 
 
