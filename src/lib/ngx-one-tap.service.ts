@@ -35,7 +35,7 @@ export class NgxOneTapService {
     }
     window.onGoogleLibraryLoad = this.initialize.bind(this);
     if (document.readyState === 'complete') {
-      this.prompt();
+      this.initialize();
     }
   }
 
