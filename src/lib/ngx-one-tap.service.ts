@@ -51,9 +51,6 @@ export class NgxOneTapService {
    * Display Google OneTap prompt
    */
   public prompt() {
-    if(!window.google) {
-      throw new Error('Google library is not loaded');
-    }
     window.google.accounts.id.prompt((response: PromptMomentNotification) => this.promptNotification.next(response));
   }
 
@@ -61,9 +58,6 @@ export class NgxOneTapService {
    * Dismiss Google OneTap prompt
    */
   public cancel() {
-    if(!window.google) {
-      throw new Error('Google library is not loaded');
-    }
     window.google.accounts.id.cancel();
   }
 }
