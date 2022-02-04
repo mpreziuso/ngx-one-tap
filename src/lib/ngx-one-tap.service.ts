@@ -22,7 +22,7 @@ export class NgxOneTapService {
     return this.promptNotification.asObservable();
   }
 
-  constructor(@Inject(Configuration) private configuration: IdConfiguration) {
+  constructor(@Inject(Configuration) private configuration: IdConfiguration, private document: Document) {
   }
 
   /**
@@ -33,6 +33,9 @@ export class NgxOneTapService {
       this.configOverrides = overrides;
     }
     window.onGoogleLibraryLoad = this.initialize.bind(this);
+    if (this.document.readyState === 'complete') {
+      this.prompt();
+    }
   }
 
   private initialize() {
@@ -41,7 +44,6 @@ export class NgxOneTapService {
       ...this.configOverrides,
       callback: (response: CredentialResponse) => this.identity.next(response),
     });
-    this.prompt();
   }
 
   /**
