@@ -3,9 +3,9 @@ import {Configuration, IdConfiguration} from './model/idConfiguration';
 import {CredentialResponse} from './model/credentialResponse';
 import {Observable, Subject} from 'rxjs';
 import {PromptMomentNotification} from './model/promptMomentNotification';
+import {DOCUMENT} from '@angular/common';
 
 declare var window: any;
-declare var document: Document;
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +23,18 @@ export class NgxOneTapService {
     return this.promptNotification.asObservable();
   }
 
-  constructor(@Inject(Configuration) private configuration: IdConfiguration) {
+  constructor(@Inject(Configuration) private configuration: IdConfiguration, @Inject(DOCUMENT) private document: Document) {
   }
 
   /**
    * Initialize Google OneTap
    */
-  init(overrides?: IdConfiguration) {
+  init(overrides: IdConfiguration) {
     if (overrides) {
       this.configOverrides = overrides;
     }
     window.onGoogleLibraryLoad = this.initialize.bind(this);
-    if (document.readyState === 'complete') {
+    if (this.document.readyState === 'complete') {
       this.initialize();
     }
   }
