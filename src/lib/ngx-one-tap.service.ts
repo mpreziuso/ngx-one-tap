@@ -5,6 +5,7 @@ import {Observable, Subject} from 'rxjs';
 import {PromptMomentNotification} from './model/promptMomentNotification';
 
 declare var window: any;
+declare var document: Document;
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class NgxOneTapService {
     return this.promptNotification.asObservable();
   }
 
-  constructor(@Inject(Configuration) private configuration: IdConfiguration, private document: Document) {
+  constructor(@Inject(Configuration) private configuration: IdConfiguration) {
   }
 
   /**
@@ -33,7 +34,7 @@ export class NgxOneTapService {
       this.configOverrides = overrides;
     }
     window.onGoogleLibraryLoad = this.initialize.bind(this);
-    if (this.document.readyState === 'complete') {
+    if (document.readyState === 'complete') {
       this.prompt();
     }
   }
