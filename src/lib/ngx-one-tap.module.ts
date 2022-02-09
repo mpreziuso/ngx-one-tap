@@ -2,12 +2,18 @@ import {Inject, ModuleWithProviders, NgModule} from '@angular/core';
 import {Configuration, IdConfiguration} from './model/idConfiguration';
 import {NgxOneTapService} from './ngx-one-tap.service';
 import {DOCUMENT} from '@angular/common';
+import {NgxOneTapComponent} from './ngx-one-tap.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    NgxOneTapComponent
+  ],
   imports: [],
-  exports: []
+  providers: [NgxOneTapService],
+  exports: [
+    NgxOneTapComponent
+  ]
 })
 export class NgxOneTapModule {
 

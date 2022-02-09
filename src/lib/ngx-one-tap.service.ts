@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, NgZone} from '@angular/core';
 import {Configuration, IdConfiguration} from './model/idConfiguration';
 import {CredentialResponse} from './model/credentialResponse';
 import {Observable, Subject} from 'rxjs';
@@ -12,7 +12,7 @@ declare var window: any;
 })
 export class NgxOneTapService {
   private configOverrides?: IdConfiguration;
-  private identity: Subject<CredentialResponse> = new Subject<CredentialResponse>();
+  public identity: Subject<CredentialResponse> = new Subject<CredentialResponse>();
   private promptNotification: Subject<PromptMomentNotification> = new Subject<PromptMomentNotification>();
 
   get identity$(): Observable<CredentialResponse> {
@@ -23,7 +23,7 @@ export class NgxOneTapService {
     return this.promptNotification.asObservable();
   }
 
-  constructor(@Inject(Configuration) private configuration: IdConfiguration, @Inject(DOCUMENT) private document: Document) {
+  constructor(@Inject(Configuration) private configuration: IdConfiguration, @Inject(DOCUMENT) private document: Document, private zone: NgZone) {
   }
 
   /**
@@ -43,15 +43,19 @@ export class NgxOneTapService {
     window.google.accounts.id.initialize({
       ...this.configuration,
       ...this.configOverrides,
-      callback: (response: CredentialResponse) => this.identity.next(response),
+      callback: this.callback.bind(this),
     });
+  }
+
+  callback(response: CredentialResponse): void {
+    this.zone.run(() => this.identity.next(response));
   }
 
   /**
    * Display Google OneTap prompt
    */
   public prompt() {
-    window.google.accounts.id.prompt((response: PromptMomentNotification) => this.promptNotification.next(response));
+    window.google.accounts.id.prompt((response: PromptMomentNotification) => this.zone.run(() => this.promptNotification.next(response)));
   }
 
   /**
