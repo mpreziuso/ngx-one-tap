@@ -36,6 +36,12 @@ import {NgxOneTapModule} from 'ngx-one-tap';
 });
 ```
 
+### Add `ngx-one-tap` element to your component HTML
+
+```html
+<ngx-one-tap></ngx-one-tap>
+```
+
 ### Import and inject the service into your component
 
 ```typescript
